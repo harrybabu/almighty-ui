@@ -17,9 +17,7 @@ export class WorkItemService {
   constructor(private http: Http,
               private logger: Logger,
               private auth: AuthenticationService) {    
-    if(this.auth.getToken() != null) {
-      this.headers.set('Authorization', 'Bearer ' + this.auth.getToken());
-    }
+    this.headers.append('Authorization', 'Bearer ' + this.auth.getToken());
     logger.log('WorkItemService running in ' + process.env.ENV + ' mode.');
     logger.log('WorkItemService using url ' + this.workItemUrl);
   }
@@ -88,7 +86,7 @@ export class WorkItemService {
       };
       const url = `${process.env.API_URL}workitemtypes`;
       return this.http
-        .get(url, {headers: this.headers})
+        .get(url)
         .toPromise()
         .then((response) => {
           let states = process.env.ENV != 'inmemory' ? response.json() : response.json().data;
