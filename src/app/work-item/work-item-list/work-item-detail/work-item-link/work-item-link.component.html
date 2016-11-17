@@ -1,49 +1,80 @@
 <div class="link-container">
-    <div (click)="toggle()" class="content__title">
-        {{ visible ? 'hide' : 'show' }}
-    </div>
     <div class="link-header">
-        <div class="link-total">0 Total Links</div>
-        <div class="link-related">1 Realted Items</div>
-        <div class="link-blockers">4 Blockers</div>
-        <div class="link-depends">0 Dependecies</div>
+        <span (click)="toggle()" class="content__title pull-left">
+            <!--{{ visible ? '<i class="fa fa-angle-down"></i>' : '<i class="fa fa-angle-up"></i>' }}-->
+            {{ visible ? '>' : '<' }}
+        </span>
+        <div class="link-header-nav"><span class="font18">0</span><span class="link-header-nav-text">Total Links</span></div>
+        <div class="link-header-nav"><span class="font18">0</span> <span class="link-header-nav-text">Related Items</span></div>
+        <div class="link-header-nav"><span class="font18">0</span> <span class="link-header-nav-text">Blockers</span></div>
+        <div class="link-header-nav"><span class="font18">0 </span><span class="link-header-nav-text">Dependencies</span></div>
     </div>
-    <br/>
     <div [hidden]="!visible" class="link-content">
-        <div class="link-relation-wrapper">
-            <div class="link-relation">
-                <select [ngModel]="selectedRelation" (ngModelChange)="onSelectRelation($event)">
-                    <option *ngFor="let linkType of linkTypes" [value]="linkType.id">{{linkType.attributes['forward_name']}}</option>
-                </select>
-            </div>
-            <span class="link-relationText"> to,item</span>
+        <div class="width100 pull-left paddingT20 paddingB20 link-content-create-link hide">
+            <i class="pficon pficon-add-circle-o add-circle-icon dib"></i>
+            <h2 class="width100 dib">Work Item Links</h2>
+            <p class="width100 dib">There are no items linked to this issue</p>
+            <button class="btn btn-primary dib create-link-btn">Create Link</button>
         </div>
-        <br/>
-        <br/>
-        <div class="link-relation-wrapper">
-            <div class="link-items">
-                <ng2-completer [(ngModel)]="selectedItem" (selected)="onSelectItem($event)" [dataService]="searchSource" [minSearchLength]="2" [placeholder]="'search for work items'"
-                    [textSearching]="'Please wait...'">
-                </ng2-completer> 
+        <div class="width100 pull-left">
+            <div class="width100 pull-left link-item-hdr">
+                <p class="pull-left">This item, PRNFLY-21</p>
+                <i class="pficon pficon-close pull-right font16"></i>
             </div>
-            <input type="button" value="Link" class="link-submit" (click)="createLink($event)"/>
+            <div class="width100 pull-left padding20">
+                <div class="width100 pull-left">
+                    <div class="col-md-5 col-sm-6 col-xs-6">
+                        <select [ngModel]="selectedRelation" (ngModelChange)="onSelectRelation($event)" class="width100 pull-left">
+                            <option *ngFor="let linkType of linkTypes" [value]="linkType.id">{{linkType.attributes['forward_name']}}</option>
+                        </select>
+                    </div>
+                    <span class="col-md-7 col-sm-6 col-xs-6"> to,item</span>
+                </div>
+                <div class="width100 pull-left marginB20 marginT10">
+                    <div class="col-md-9 col-sm-9 col-xs-9">
+                        <ng2-completer [(ngModel)]="selectedItem" (selected)="onSelectItem($event)" [dataService]="searchSource" [minSearchLength]="2" [placeholder]="'search for work items'"
+                            [textSearching]="'Please wait...'">
+                        </ng2-completer> 
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <button type="button" value="Link" class="width100 pull-left btn btn-primary" (click)="createLink($event)">Link</button>
+                    </div>
+                </div>
+            </div> 
         </div>
-    </div>
-    <div>
-     <div class="link-list-header">Links</div>
-     <div class="link-list-container">
-        <div class="link-list-group">
-            <div class="link-list-group-header">Header1</div>
-            <div class="link-list-group-items">
-                <div>Hello World</div>
+         <div class="width100 pull-left paddingL20 paddingR20">
+            <h4 class="link-list-header">Links</h4>
+            <div class="width100 pull-left link-list">
+                <h5 class="width100 pull-left"><strong>Is related to</strong></h5>
+                <ul class="link-list-group-list">
+                    <li class="link-list-group-list-item">
+                        <span class="col-md-8 col-sm-8 col-xs-8 truncate">PRNFLY-21  Sort tables with the table header Sort tables with the table header</span>
+                        <span class="col-md-3 col-sm-3 col-xs-3">Open</span>
+                        <a class="col-md-1 col-sm-1 col-xs-1">
+                            <i class="pull-right pficon pficon-close list-close-icon"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </div>
-        <div class="link-list-group">
-            <div class="link-list-group-header">Header2</div>
-            <div class="link-list-group-items">
-                <div>Hello World</div>
+            <div class="width100 pull-left link-list">
+                <h5 class="width100 pull-left"><strong>Is blocking</strong></h5>
+                <ul class="link-list-group-list">
+                    <li class="link-list-group-list-item">
+                        <span class="col-md-8 col-sm-8 col-xs-8 truncate">PRNFLY-21 Sort tables  with the table header  with the table header  with the table header</span>
+                        <span class="col-md-3 col-sm-3 col-xs-3">Open</span>
+                        <a class="col-md-1 col-sm-1 col-xs-1">
+                            <i class="pull-right pficon pficon-close list-close-icon"></i>
+                        </a>
+                    </li>
+                    <li class="link-list-group-list-item">
+                        <span class="col-md-8 col-sm-8 col-xs-8 truncate">PRNFLY-21 Sort tables with the table header</span>
+                        <span class="col-md-3 col-sm-3 col-xs-3">Closed</span>
+                        <a class="col-md-1 col-sm-1 col-xs-1">
+                            <i class="pull-right pficon pficon-close list-close-icon"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </div>
-     </div>
+        </div> 
     </div>
 </div>

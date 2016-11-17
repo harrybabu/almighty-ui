@@ -1,4 +1,5 @@
 <div class="detail-container" *ngIf="workItem" id="workItemDetail_Wrapper">
+  <!-- Work Item Title, Description, Status and Assignee -->
   <form *ngIf="active" 
         (ngSubmit)="save()"          
         #almWorkItemDetailForm="ngForm" 
@@ -150,5 +151,6 @@
       </div>
     </fieldset>
   </form>
+  <!-- Work Item Linking -->
   <alm-work-item-link [workItem]="workItem" ></alm-work-item-link>
 </div>
